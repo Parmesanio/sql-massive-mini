@@ -1,16 +1,22 @@
 const express       = require('express'),
       bodyParser    = require('body-parser'),
       massive       = require('massive'),
+      dotenv        = require('dotenv'),
       app           = express(),
       PORT          = 4000;
+      dotenv.config();
 
 
 app.use(bodyParser.json());
 
 //MASSIVE CONFIG
 
-massive(process.ip.ENV).then(db => console.log(`Connected to ${db}`));
-massive().then(db => console.log(`Connected to ${db}`));
+massive(process.env.CONNECTION_STRING).then(db => {
+    console.log(`Connected to ${db}`);
+    db.query('select * from heroes').then(heroes => {
+        console.log(heroes);
+    })
+})
 
 
 app.get('/', (req, res) => {
