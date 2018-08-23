@@ -8,7 +8,9 @@ const express       = require('express'),
 app.use(bodyParser.json());
 
 //MASSIVE CONFIG
+
 massive(process.ip.ENV).then(db => console.log(`Connected to ${db}`));
+massive().then(db => console.log(`Connected to ${db}`));
 
 
 app.get('/', (req, res) => {
